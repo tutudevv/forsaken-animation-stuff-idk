@@ -36,7 +36,7 @@ local function serialize(_table, indent)
 end
 
 tools.convert = function(Animations: any)
-	
+
 	if not FolderPlacement:FindFirstChild("Animation") then
 		local f = Instance.new("Folder")
 		f.Name = "Animation"
@@ -76,37 +76,37 @@ end
 
 tools.print = function(AnimationFolder: Folder	)
 	local AnimFolder: Folder = AnimationFolder
-	
+
 	local AnimFolderChildren = AnimFolder:GetChildren()
 	local Accumulation = {}
-	
+
 	for _, Animation in ipairs(AnimFolderChildren) do
 		if not Animation:IsA("Folder") then
 			local KeyName = Animation.Name
 			Accumulation[KeyName] = Animation.AnimationId
 		end
 	end
-	
+
 	for _, SubAnimFolder in ipairs(AnimFolderChildren) do
 		if SubAnimFolder:IsA("Folder") then
-			
+
 			local SubAnimation = SubAnimFolder:GetChildren()
 			Accumulation[SubAnimFolder.Name] = {}
-			
+
 			for _, AnimationA in ipairs(SubAnimation) do
 				local key = AnimationA.Name
 				Accumulation[SubAnimFolder.Name][key] = AnimationA.AnimationId
 			end
-			
+
 		end
 	end
-	
+
 	task.defer(function()
-		
+
 		print('Output: ', serialize(Accumulation))
-		
+
 	end)
-	
+
 end
 
 tools.main = function(Animations)
@@ -150,7 +150,7 @@ local Animation = {
 		Value2 = "rbxassetid://0", 
 		Value3 = "rbxassetid://0"
 	}, 
-}; 
+}
 
 -- require(workspace.converter).convert(Animation)
 -- require(workspace.converter).print(workspace.Animation)
